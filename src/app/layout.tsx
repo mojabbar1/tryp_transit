@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/navbar';
 import { GeolocationProvider } from '@/contexts/geolocation-context-provider';
+import { AuthProvider } from '@/contexts/auth-context-provider';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({ subsets: ['latin'], weight: ['500', '900'] });
 
 export const metadata: Metadata = {
   title: 'Tryp Transit',
@@ -18,11 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <GeolocationProvider>
-          <Navbar />
-          {children}
-        </GeolocationProvider>
+      <body className={poppins.className}>
+        <AuthProvider>
+          <GeolocationProvider>
+            <Navbar />
+            {children}
+          </GeolocationProvider>
+        </AuthProvider>
       </body>
     </html>
   );

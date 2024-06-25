@@ -9,7 +9,7 @@ import bcrypt from 'bcryptjs';
 import BusPhotoOne from '@/public/bus-one.jpg';
 import BusPhotoTwo from '@/public/bus-two.jpg';
 import BusPhotoThree from '@/public/bus-three.jpg';
-import BusPhotoFour from '@/public/bus-four.jpg';
+import BusPhotoEleven from '@/public/bus-eleven.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
+import { useAuth } from '@/contexts/auth-context-provider';
 
 const registerFormSchema = z
   .object({
@@ -36,6 +37,7 @@ const registerFormSchema = z
   });
 
 const RegisterForm = () => {
+  const { isLoggedIn } = useAuth();
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(registerFormSchema),
@@ -50,14 +52,20 @@ const RegisterForm = () => {
   async function onSubmit(data: z.infer<typeof registerFormSchema>) {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const hashedPassword = await bcrypt.hash(data.password, 12);
-    users.push({
+    const newUser = {
       name: data.name,
       email: data.email,
       password: hashedPassword,
-    });
+    };
+    users.push(newUser);
 
     localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
     router.push('/login');
+  }
+
+  if (isLoggedIn) {
+    router.push('/dashboard');
   }
 
   return (
@@ -67,36 +75,36 @@ const RegisterForm = () => {
           <Image
             src={BusPhotoOne}
             alt="Bus Photo One"
-            layout="fill"
-            objectFit="cover"
-            className="opacity-70"
+            fill
+            className="object-cover opacity-70"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div className="relative w-full h-full">
           <Image
             src={BusPhotoTwo}
             alt="Bus Photo Two"
-            layout="fill"
-            objectFit="cover"
-            className="opacity-70"
+            fill
+            className="object-cover opacity-70"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div className="relative w-full h-full">
           <Image
-            src={BusPhotoFour}
+            src={BusPhotoEleven}
             alt="Bus Photo Three"
-            layout="fill"
-            objectFit="cover"
-            className="opacity-70"
+            fill
+            className="object-cover opacity-70"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div className="relative w-full h-full">
           <Image
             src={BusPhotoThree}
             alt="Bus Photo Four"
-            layout="fill"
-            objectFit="cover"
-            className="opacity-70"
+            fill
+            className="object-cover opacity-70"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
       </div>

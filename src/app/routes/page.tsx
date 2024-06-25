@@ -1,16 +1,13 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import bcrypt from 'bcryptjs';
-import BusPhotoFive from '@/public/bus-five.jpg';
-import BusPhotoSix from '@/public/bus-six.jpg';
-import BusPhotoSeven from '@/public/bus-seven.jpg';
-import BusPhotoNine from '@/public/bus-nine.jpg';
+import BusPhotoFour from '@/public/bus-four.jpg';
+import BusPhotoEight from '@/public/bus-eight.jpg';
+import BusPhotoTen from '@/public/bus-ten.jpg';
+import BusPhotoTwelve from '@/public/bus-twelve.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -22,49 +19,33 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '@/contexts/auth-context-provider';
+import { useGeolocation } from '@/contexts/geolocation-context-provider';
+import useRequireAuth from '../hooks/useRequireAuth';
 
 const loginFormSchema = z.object({
-  email: z.string().email('Must be a valid email.'),
-  password: z.string().min(1, 'Must be a valid password'),
+  destination: z.string().min(1, 'Must be a valid destination.'),
+  timeToDestination: z.string().min(1, 'Must be a valid time.'),
 });
 
-const LoginForm = () => {
-  const { isLoggedIn } = useAuth();
-  const { login } = useAuth();
-  const router = useRouter();
+const RoutesForm = () => {
+  const { coordinates } = useGeolocation();
+  const isLoggedIn = useRequireAuth();
+
   const form = useForm({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      destination: '',
+      timeToDestination: '',
     },
   });
 
   async function onSubmit(data: z.infer<typeof loginFormSchema>) {
-    const { email, password } = data;
-
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find((user: any) => user.email === email);
-
-    if (user && bcrypt.compareSync(password, user.password)) {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      login();
-      router.push('/dashboard');
-    } else {
-      form.setError('email', {
-        type: 'manual',
-        message: 'Invalid email or password',
-      });
-      form.setError('password', {
-        type: 'manual',
-        message: 'Invalid email or password',
-      });
-    }
+    console.log(data);
+    console.log(coordinates);
   }
 
-  if (isLoggedIn) {
-    router.push('/dashboard');
+  if (!isLoggedIn) {
+    return null;
   }
 
   return (
@@ -72,7 +53,7 @@ const LoginForm = () => {
       <div className="absolute md:grid md:grid-cols-2 grid-rows-2 w-full h-full hidden">
         <div className="relative w-full h-full">
           <Image
-            src={BusPhotoSix}
+            src={BusPhotoTwelve}
             alt="Bus Photo One"
             fill
             className="object-cover opacity-70"
@@ -81,7 +62,7 @@ const LoginForm = () => {
         </div>
         <div className="relative w-full h-full">
           <Image
-            src={BusPhotoFive}
+            src={BusPhotoTen}
             alt="Bus Photo Two"
             fill
             className="object-cover opacity-70"
@@ -90,7 +71,7 @@ const LoginForm = () => {
         </div>
         <div className="relative w-full h-full">
           <Image
-            src={BusPhotoSeven}
+            src={BusPhotoFour}
             alt="Bus Photo Three"
             fill
             className="object-cover opacity-70"
@@ -99,7 +80,7 @@ const LoginForm = () => {
         </div>
         <div className="relative w-full h-full">
           <Image
-            src={BusPhotoNine}
+            src={BusPhotoEight}
             alt="Bus Photo Four"
             fill
             className="object-cover opacity-70"
@@ -111,7 +92,7 @@ const LoginForm = () => {
         <Card className="bg-primary shadow-2xl w-full border-secondary">
           <CardHeader>
             <CardTitle className="text-center text-secondary font-bold">
-              Login
+              Find Routes
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -122,15 +103,15 @@ const LoginForm = () => {
               >
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="destination"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email:</FormLabel>
+                      <FormLabel>Destination:</FormLabel>
                       <FormControl>
                         <Input
                           className="w-full"
                           type="text"
-                          placeholder="Email"
+                          placeholder="Destination"
                           {...field}
                         />
                       </FormControl>
@@ -140,15 +121,15 @@ const LoginForm = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="password"
+                  name="timeToDestination"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password:</FormLabel>
+                      <FormLabel>Time to Destination:</FormLabel>
                       <FormControl>
                         <Input
                           className="w-full"
                           type="password"
-                          placeholder="******"
+                          placeholder="4:00 pm"
                           {...field}
                         />
                       </FormControl>
@@ -157,19 +138,10 @@ const LoginForm = () => {
                   )}
                 />
                 <Button variant="secondary" type="submit">
-                  Login
+                  Find Routes
                 </Button>
               </form>
             </Form>
-            <div className="mt-2 text-center">
-              Don&apos;t have an account?{' '}
-              <Link
-                className="font-bold hover:underline text-secondary"
-                href="/"
-              >
-                Register here
-              </Link>
-            </div>
           </CardContent>
         </Card>
       </div>
@@ -177,4 +149,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RoutesForm;
