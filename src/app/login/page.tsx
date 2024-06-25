@@ -1,11 +1,16 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
+import BusPhotoFive from '@/public/bus-five.jpg';
+import BusPhotoSix from '@/public/bus-six.jpg';
+import BusPhotoSeven from '@/public/bus-seven.jpg';
+import BusPhotoEight from '@/public/bus-eight.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -54,68 +59,111 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="flex justify-center mt-8">
-      <Card className="max-w-md w-11/12 shadow-xl">
-        <CardHeader>
-          <CardTitle className="text-center text-primary font-bold">
-            Login
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form
-              className="flex flex-col gap-4"
-              onSubmit={form.handleSubmit(onSubmit)}
-            >
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email:</FormLabel>
-                    <FormControl>
-                      <Input
-                        className="w-full"
-                        type="text"
-                        placeholder="Email"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password:</FormLabel>
-                    <FormControl>
-                      <Input
-                        className="w-full"
-                        type="password"
-                        placeholder="******"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button variant="secondary" type="submit">
-                Login
-              </Button>
-            </form>
-          </Form>
-          <div className="mt-2 text-center">
-            Don&apos;t have an account?{' '}
-            <Link className="font-bold hover:underline text-primary" href="/">
-              Register here
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+    <div className="relative flex justify-center w-full h-screen">
+      <div className="absolute md:grid md:grid-cols-2 grid-rows-2 w-full h-full hidden">
+        <div className="relative w-full h-full">
+          <Image
+            src={BusPhotoSix}
+            alt="Bus Photo One"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-70"
+          />
+        </div>
+        <div className="relative w-full h-full">
+          <Image
+            src={BusPhotoFive}
+            alt="Bus Photo Two"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-70"
+          />
+        </div>
+        <div className="relative w-full h-full">
+          <Image
+            src={BusPhotoSeven}
+            alt="Bus Photo Three"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-70"
+          />
+        </div>
+        <div className="relative w-full h-full">
+          <Image
+            src={BusPhotoEight}
+            alt="Bus Photo Four"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-70"
+          />
+        </div>
+      </div>
+      <div className="relative bottom-20 z-10 flex justify-center items-center w-full max-w-md">
+        <Card className="bg-primary shadow-2xl w-full border-secondary">
+          <CardHeader>
+            <CardTitle className="text-center text-secondary font-bold">
+              Login
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                className="flex flex-col gap-4"
+                onSubmit={form.handleSubmit(onSubmit)}
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email:</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="w-full"
+                          type="text"
+                          placeholder="Email"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password:</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="w-full"
+                          type="password"
+                          placeholder="******"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button variant="secondary" type="submit">
+                  Login
+                </Button>
+              </form>
+            </Form>
+            <div className="mt-2 text-center">
+              Don&apos;t have an account?{' '}
+              <Link
+                className="font-bold hover:underline text-secondary"
+                href="/"
+              >
+                Register here
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
