@@ -26,17 +26,22 @@ const Navbar = () => {
             height={20}
             style={{ width: 'auto', height: 'auto' }}
           />
-          <h1 className="font-bold text-2xl text-secondary">Tryp Transit</h1>
+          <h1 className="font-bold text-2xl text-secondary hover:text-[#FFDF57]/95">
+            Tryp Transit
+          </h1>
         </Link>
         <div>
           {isLoggedIn && (
             <>
-              <Link className="font-bold text-secondary" href="/routes">
+              <Link
+                className="font-bold text-secondary hover:text-[#FFDF57]/95"
+                href="/routes"
+              >
                 Find Routes
               </Link>
               <button
                 onClick={handleLogout}
-                className="ml-4 font-bold text-secondary"
+                className="ml-4 font-bold text-secondary hover:text-[#FFDF57]/95"
               >
                 Logout
               </button>
