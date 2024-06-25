@@ -31,10 +31,16 @@ const Navbar = () => {
           </h1>
         </Link>
         <div>
+          <Link
+            className="font-bold text-secondary hover:text-[#FFDF57]/95"
+            href="/about"
+          >
+            About
+          </Link>
           {isLoggedIn && (
             <>
               <Link
-                className="font-bold text-secondary hover:text-[#FFDF57]/95"
+                className="font-bold text-secondary hover:text-[#FFDF57]/95 ms-4"
                 href="/routes"
               >
                 Find Routes
