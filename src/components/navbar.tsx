@@ -1,9 +1,20 @@
-import Image from 'next/image';
-import React from 'react';
-import TrypLogo from '@/public/tryp.svg';
+'use client';
+
 import Link from 'next/link';
+import Image from 'next/image';
+import { useAuth } from '@/contexts/auth-context-provider';
+import { useRouter } from 'next/navigation';
+import TrypLogo from '@/public/tryp.svg';
 
 const Navbar = () => {
+  const { isLoggedIn, logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
+
   return (
     <nav className="p-6 bg-primary">
       <div className="flex items-center justify-between">
@@ -17,9 +28,21 @@ const Navbar = () => {
           />
           <h1 className="font-bold text-2xl text-secondary">Tryp Transit</h1>
         </Link>
-        <Link className="font-bold text-secondary" href="/routes">
-          Find Routes
-        </Link>
+        <div>
+          {isLoggedIn && (
+            <>
+              <Link className="font-bold text-secondary" href="/routes">
+                Find Routes
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="ml-4 font-bold text-secondary"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );
