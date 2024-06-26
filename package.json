@@ -1,0 +1,11 @@
+{
+  "name": "tryp_transit",
+  "version": "1.0.0",
+  "description": "Hackathon app to financially incentivize people to use public transit and leave the car at home",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
