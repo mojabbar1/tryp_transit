@@ -1,16 +1,17 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
+import { useAuth } from '@/contexts/auth-context-provider';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useFormState } from 'react-hook-form';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
-import BusPhotoFive from '@/public/bus-five.jpg';
-import BusPhotoSix from '@/public/bus-six.jpg';
-import BusPhotoSeven from '@/public/bus-seven.jpg';
-import BusPhotoNine from '@/public/bus-nine.jpg';
+import BusPhotoOne from '@/public/bus-one.jpg';
+import BusPhotoTwo from '@/public/bus-two.jpg';
+import BusPhotoThree from '@/public/bus-three.jpg';
+import BusPhotoEleven from '@/public/bus-eleven.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -22,47 +23,47 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '@/contexts/auth-context-provider';
 
-const loginFormSchema = z.object({
-  email: z.string().email('Must be a valid email.'),
-  password: z.string().min(1, 'Must be a valid password'),
-});
+const registerFormSchema = z
+  .object({
+    name: z.string().min(1, 'Must be a valid name'),
+    email: z.string().email('Must be a valid email.'),
+    password: z.string().min(1, 'Must be a valid password'),
+    confirmPassword: z.string().min(1, 'Must be a valid password'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords must match',
+    path: ['confirmPassword'],
+  });
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const { isLoggedIn } = useAuth();
-  const { login } = useAuth();
   const router = useRouter();
   const form = useForm({
-    resolver: zodResolver(loginFormSchema),
+    resolver: zodResolver(registerFormSchema),
     defaultValues: {
+      name: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
   });
 
   const { errors } = useFormState({ control: form.control });
 
-  async function onSubmit(data: z.infer<typeof loginFormSchema>) {
-    const { email, password } = data;
-
+  async function onSubmit(data: z.infer<typeof registerFormSchema>) {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find((user: any) => user.email === email);
+    const hashedPassword = await bcrypt.hash(data.password, 12);
+    const newUser = {
+      name: data.name,
+      email: data.email,
+      password: hashedPassword,
+    };
+    users.push(newUser);
 
-    if (user && bcrypt.compareSync(password, user.password)) {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      login();
-      router.push('/dashboard');
-    } else {
-      form.setError('email', {
-        type: 'manual',
-        message: 'Invalid email or password',
-      });
-      form.setError('password', {
-        type: 'manual',
-        message: 'Invalid email or password',
-      });
-    }
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
+    router.push('/');
   }
 
   if (isLoggedIn) {
@@ -74,7 +75,7 @@ const LoginForm = () => {
       <div className="absolute md:grid md:grid-cols-2 grid-rows-2 w-full h-full">
         <div className="relative w-full h-full hidden md:block">
           <Image
-            src={BusPhotoSix}
+            src={BusPhotoOne}
             alt="Bus Photo One"
             fill
             className="object-cover opacity-70"
@@ -84,18 +85,8 @@ const LoginForm = () => {
         </div>
         <div className="relative w-full h-full hidden md:block">
           <Image
-            src={BusPhotoFive}
+            src={BusPhotoTwo}
             alt="Bus Photo Two"
-            fill
-            className="object-cover opacity-70"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
-          />
-        </div>
-        <div className="relative w-full h-full hidden md:block">
-          <Image
-            src={BusPhotoSeven}
-            alt="Bus Photo Three"
             fill
             className="object-cover opacity-70"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -104,7 +95,17 @@ const LoginForm = () => {
         </div>
         <div className="relative w-full h-full">
           <Image
-            src={BusPhotoNine}
+            src={BusPhotoEleven}
+            alt="Bus Photo Three"
+            fill
+            className="object-cover opacity-70"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
+          />
+        </div>
+        <div className="relative w-full h-full hidden md:block">
+          <Image
+            src={BusPhotoThree}
             alt="Bus Photo Four"
             fill
             className="object-cover opacity-70"
@@ -113,11 +114,11 @@ const LoginForm = () => {
           />
         </div>
       </div>
-      <div className="relative bottom-20 z-10 flex justify-center items-center w-full max-w-md">
+      <div className="relative z-10 flex justify-center items-center w-full max-w-md">
         <Card className="bg-primary shadow-2xl w-full border-secondary">
           <CardHeader>
             <CardTitle className="text-center text-secondary font-bold">
-              Login
+              Register
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -126,6 +127,28 @@ const LoginForm = () => {
                 className="flex flex-col gap-4"
                 onSubmit={form.handleSubmit(onSubmit)}
               >
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel
+                        className={`${errors.name ? 'text-red-700' : ''}`}
+                      >
+                        Name:
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          className="w-full"
+                          type="text"
+                          placeholder="Name"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-700" />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="email"
@@ -170,18 +193,42 @@ const LoginForm = () => {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel
+                        className={`${
+                          errors.confirmPassword ? 'text-red-700' : ''
+                        }`}
+                      >
+                        Confirm Password:
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          className="w-full"
+                          type="password"
+                          placeholder="******"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-700" />
+                    </FormItem>
+                  )}
+                />
                 <Button variant="secondary" type="submit">
-                  Login
+                  Register
                 </Button>
               </form>
             </Form>
-            <div className="mt-2 text-center">
-              Don&apos;t have an account?{' '}
+            <div className="mt-4 text-center">
+              Already have an account?{' '}
               <Link
                 className="font-bold hover:underline text-secondary"
                 href="/"
               >
-                Register here
+                Login here
               </Link>
             </div>
           </CardContent>
@@ -191,4 +238,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
