@@ -5,16 +5,16 @@ import BusPhotoOne from '@/public/bus-one.jpg';
 const AboutPage = () => {
   return (
     <div className="flex flex-col items-center mx-10 mt-10 lg:mx-24">
-      <h1 className="text-primary font-bold text-2xl ">
+      <h1 className="text-primary font-bold text-left mr-auto text-6xl">
         What is Tryp Transit?
       </h1>
       <div className="flex flex-col gap-4 mt-8">
         <div className="flex">
           <div className="flex flex-col gap-4">
             <section>
-              <h1 className="text-primary font-bold text-xl">
+              <h2 className="text-primary font-bold text-xl">
                 Ride the Bus, Earn Rewards!
-              </h1>
+              </h2>
               <p>
                 <span className="font-bold">Earn points</span> and{' '}
                 <span className="font-bold">rewards</span> every time you
@@ -69,7 +69,7 @@ const AboutPage = () => {
           </div>
 
           <Image
-            className="hidden lg:flex"
+            className="hidden lg:flex rounded-lg"
             src={BusPhotoOne}
             alt="Bus Photo"
             height={150}

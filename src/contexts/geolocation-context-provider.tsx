@@ -1,5 +1,6 @@
 'use client';
 
+import { Coordinates, GeolocationContextProps } from '@/types/interfaces';
 import React, {
   createContext,
   useContext,
@@ -7,16 +8,6 @@ import React, {
   useState,
   ReactNode,
 } from 'react';
-
-interface Coordinates {
-  latitude: number | null;
-  longitude: number | null;
-}
-
-interface GeolocationContextProps {
-  coordinates: Coordinates;
-  error: string | null;
-}
 
 const GeolocationContext = createContext<GeolocationContextProps | undefined>(
   undefined,
