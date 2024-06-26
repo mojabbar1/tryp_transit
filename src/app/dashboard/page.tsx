@@ -31,6 +31,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
+import { routesFormSchema } from '@/validation/routesFormSchema';
 
 const busStops = [
   {
@@ -44,16 +45,6 @@ const busStops = [
   },
 ];
 
-const timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM)$/i;
-
-const loginFormSchema = z.object({
-  destination: z.string().min(1, 'Must choose a valid destination.'),
-  timeToDestination: z
-    .string()
-    .min(1, 'Must be a valid time.')
-    .regex(timeRegex, 'Time must be in the format hh:mm AM/PM.'),
-});
-
 const Dashboard = () => {
   const { coordinates } = useGeolocation();
   const isLoggedIn = useRequireAuth();
@@ -61,7 +52,7 @@ const Dashboard = () => {
   const router = useRouter();
 
   const form = useForm({
-    resolver: zodResolver(loginFormSchema),
+    resolver: zodResolver(routesFormSchema),
     defaultValues: {
       destination: '',
       timeToDestination: '',
@@ -70,7 +61,7 @@ const Dashboard = () => {
 
   const { errors } = useFormState({ control: form.control });
 
-  async function onSubmit(data: z.infer<typeof loginFormSchema>) {
+  async function onSubmit(data: z.infer<typeof routesFormSchema>) {
     let destinationCoordinates;
 
     switch (data.destination) {
@@ -86,6 +77,7 @@ const Dashboard = () => {
       default:
         break;
     }
+
     const utcTime = convertToUTC(data.timeToDestination);
     console.log(utcTime);
     console.log('My coordinates', coordinates);
@@ -184,7 +176,7 @@ const Dashboard = () => {
                           >
                             <SelectTrigger
                               className={`w-full ${
-                                field.value ? 'text-black' : 'text-slate-700'
+                                field.value ? 'text-black' : 'text-slate-500'
                               }`}
                             >
                               <SelectValue placeholder="Select a destination" />

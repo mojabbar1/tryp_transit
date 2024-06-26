@@ -23,11 +23,7 @@ import {
 } from '@/components/ui/form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/auth-context-provider';
-
-const loginFormSchema = z.object({
-  email: z.string().email('Must be a valid email.'),
-  password: z.string().min(1, 'Must be a valid password'),
-});
+import { loginFormSchema } from '@/validation/loginFormSchema';
 
 const LoginForm = () => {
   const { isLoggedIn } = useAuth();
