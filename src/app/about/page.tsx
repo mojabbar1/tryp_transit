@@ -88,7 +88,7 @@ const AboutPage = () => {
             </blockquote>
             <blockquote>
               “As someone who cares deeply about our environment, I was thrilled
-              to discover Tryp Transit. It&apo;s a brilliant way to reduce our
+              to discover Tryp Transit. It&apos;s a brilliant way to reduce our
               carbon footprint while enjoying a seamless public transit
               experience. I highly recommend it!“ - Leonardo DiCaprio
             </blockquote>
