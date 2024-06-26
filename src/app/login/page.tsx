@@ -50,7 +50,7 @@ const LoginForm = () => {
     if (user && bcrypt.compareSync(password, user.password)) {
       localStorage.setItem('currentUser', JSON.stringify(user));
       login();
-      router.push('/dashboard');
+      router.push('/routes');
     } else {
       form.setError('email', {
         type: 'manual',
@@ -64,7 +64,7 @@ const LoginForm = () => {
   }
 
   if (isLoggedIn) {
-    router.push('/dashboard');
+    router.push('/routes');
   }
 
   return (
@@ -77,6 +77,7 @@ const LoginForm = () => {
             fill
             className="object-cover opacity-70"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
         </div>
         <div className="relative w-full h-full">
@@ -86,6 +87,7 @@ const LoginForm = () => {
             fill
             className="object-cover opacity-70"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
         </div>
         <div className="relative w-full h-full">
@@ -95,6 +97,7 @@ const LoginForm = () => {
             fill
             className="object-cover opacity-70"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
         </div>
         <div className="relative w-full h-full">
@@ -104,6 +107,7 @@ const LoginForm = () => {
             fill
             className="object-cover opacity-70"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
         </div>
       </div>

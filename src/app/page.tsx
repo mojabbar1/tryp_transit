@@ -65,7 +65,7 @@ const RegisterForm = () => {
   }
 
   if (isLoggedIn) {
-    router.push('/dashboard');
+    router.push('/routes');
   }
 
   return (
@@ -78,6 +78,7 @@ const RegisterForm = () => {
             fill
             className="object-cover opacity-70"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
         </div>
         <div className="relative w-full h-full">
@@ -87,6 +88,7 @@ const RegisterForm = () => {
             fill
             className="object-cover opacity-70"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
         </div>
         <div className="relative w-full h-full">
@@ -96,6 +98,7 @@ const RegisterForm = () => {
             fill
             className="object-cover opacity-70"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
         </div>
         <div className="relative w-full h-full">
@@ -105,6 +108,7 @@ const RegisterForm = () => {
             fill
             className="object-cover opacity-70"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
           />
         </div>
       </div>

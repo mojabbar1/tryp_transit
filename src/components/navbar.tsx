@@ -16,35 +16,41 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="p-6 bg-primary">
-      <div className="flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src={TrypLogo}
-            alt="Tryp Logo"
-            width={20}
-            height={20}
-            style={{ width: 'auto', height: 'auto' }}
-          />
-          <h1 className="font-bold text-2xl text-secondary">Tryp Transit</h1>
-        </Link>
-        <div>
-          {isLoggedIn && (
-            <>
-              <Link className="font-bold text-secondary" href="/routes">
-                Find Routes
-              </Link>
+    <div>
+      <nav className="p-6 bg-primary">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src={TrypLogo}
+              alt="Tryp Logo"
+              width={20}
+              height={20}
+              style={{ width: 'auto', height: 'auto' }}
+              priority
+            />
+            <h1 className="font-bold text-2xl text-secondary hover:text-[#FFDF57]/95">
+              Tryp Transit
+            </h1>
+          </Link>
+          <div>
+            <Link
+              className="font-bold text-secondary hover:text-[#FFDF57]/95"
+              href="/about"
+            >
+              About
+            </Link>
+            {isLoggedIn && (
               <button
                 onClick={handleLogout}
-                className="ml-4 font-bold text-secondary"
+                className="ml-4 font-bold text-secondary hover:text-[#FFDF57]/95"
               >
                 Logout
               </button>
-            </>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 };
 
