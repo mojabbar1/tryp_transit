@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { useGeolocation } from '@/contexts/geolocation-context-provider';
 import useRequireAuth from '../hooks/useRequireAuth';
-import { convertToUTC } from '@/lib/convertToUTC';
 import BusPhotoFour from '@/public/bus-four.jpg';
 import BusPhotoEight from '@/public/bus-eight.jpg';
 import BusPhotoTen from '@/public/bus-ten.jpg';
@@ -32,6 +31,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { routesFormSchema } from '@/validation/routesFormSchema';
 import BackgroundPhoto from '@/components/background-photo';
+import axios from 'axios';
 
 const busStops = [
   {
@@ -48,6 +48,8 @@ const busStops = [
 const Dashboard = () => {
   const { coordinates } = useGeolocation();
   const isLoggedIn = useRequireAuth();
+  const [travelTime, setTravelTime] = useState<number | null>(null);
+  const [trafficDensity, setTrafficDensity] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState('');
   const router = useRouter();
 
@@ -58,6 +60,9 @@ const Dashboard = () => {
       timeToDestination: '',
     },
   });
+
+  console.log('Time', travelTime);
+  console.log('Density', trafficDensity);
 
   const { errors } = useFormState({ control: form.control });
 
@@ -78,12 +83,23 @@ const Dashboard = () => {
         break;
     }
 
-    const utcTime = convertToUTC(data.timeToDestination);
-    console.log(utcTime);
-    console.log('My coordinates', coordinates);
-    console.log('Destination coordinates', destinationCoordinates);
+    try {
+      const response = await axios.post('/api/getTravelTime', {
+        currentLocation: {
+          latitude: coordinates.latitude,
+          longitude: coordinates.longitude,
+        },
+        destination: destinationCoordinates,
+        timeToDestination: data.timeToDestination,
+      });
 
-    router.push('/routes');
+      setTravelTime(response?.data?.travelTime);
+      setTrafficDensity(response?.data?.trafficDensity);
+    } catch (error) {
+      console.error(error);
+    }
+
+    // router.push('/routes');
   }
 
   if (!isLoggedIn) {
@@ -106,10 +122,10 @@ const Dashboard = () => {
           imgFour={BusPhotoTwelve}
         />
         <div className="relative bottom-28 z-10 flex justify-center items-center w-full max-w-md">
-          <Card className="bg-primary shadow-2xl w-full border-secondary">
+          <Card className="bg-white shadow-2xl w-full border-secondary">
             <CardHeader>
-              <CardTitle className="text-center text-secondary font-bold">
-                Find Routes
+              <CardTitle className="text-center text-black font-bold">
+                FIND ROUTES
               </CardTitle>
             </CardHeader>
             <CardContent>

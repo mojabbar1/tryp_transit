@@ -1,11 +1,5 @@
-import Image, { StaticImageData } from 'next/image';
-
-interface BackgroundPhotoProps {
-  imgOne: StaticImageData;
-  imgTwo: StaticImageData;
-  imgThree: StaticImageData;
-  imgFour: StaticImageData;
-}
+import { BackgroundPhotoProps } from '@/types/interfaces';
+import Image from 'next/image';
 
 const BackgroundPhoto = ({
   imgOne,
@@ -14,7 +8,7 @@ const BackgroundPhoto = ({
   imgFour,
 }: BackgroundPhotoProps) => {
   return (
-    <div className="absolute md:grid md:grid-cols-2 grid-rows-2 w-full h-full">
+    <div className="absolute md:grid md:grid-cols-2 grid-rows-2 w-full h-full filter brightness-50 grayscale sepia">
       <div className="relative w-full h-full hidden md:block">
         <Image
           src={imgOne}

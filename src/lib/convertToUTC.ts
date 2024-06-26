@@ -1,24 +1,16 @@
-export function convertToUTC(timeString: string) {
-  const [time, period] = timeString.split(' ');
+import { parse } from 'date-fns';
 
-  let [hours, minutes] = time.split(':').map(Number);
-
-  if (period.toLowerCase() === 'pm' && hours < 12) {
-    hours += 12;
-  } else if (period.toLowerCase() === 'am' && hours === 12) {
-    hours = 0;
-  }
+export function convertToUTC(time: string): string {
+  const parsedTime = parse(time, 'h:mm a', new Date());
 
   const now = new Date();
-  const dateWithTime = new Date(
+  const destinationTime = new Date(
     now.getFullYear(),
     now.getMonth(),
     now.getDate(),
-    hours,
-    minutes,
+    parsedTime.getHours(),
+    parsedTime.getMinutes(),
   );
 
-  const utcString = dateWithTime.toISOString();
-
-  return utcString;
+  return destinationTime.toISOString();
 }

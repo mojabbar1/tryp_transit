@@ -68,11 +68,9 @@ const RegisterForm = () => {
         imgFour={BusPhotoEleven}
       />
       <div className="relative z-10 flex justify-center items-center w-full max-w-md">
-        <Card className="bg-primary shadow-2xl w-full border-secondary">
+        <Card className="bg-white shadow-2xl w-full border-secondary">
           <CardHeader>
-            <CardTitle className="text-center text-secondary font-bold">
-              Register
-            </CardTitle>
+            <CardTitle className="text-center font-bold">Register</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...form}>

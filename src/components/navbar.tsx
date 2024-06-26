@@ -19,7 +19,10 @@ const Navbar = () => {
     <div>
       <nav className="p-6 bg-primary">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
+          <Link
+            href="/"
+            className="flex items-center gap-2 hover:filter hover:brightness-125"
+          >
             <Image
               src={TrypLogo}
               alt="Tryp Logo"
@@ -28,9 +31,7 @@ const Navbar = () => {
               style={{ width: 'auto', height: 'auto' }}
               priority
             />
-            <h1 className="font-bold text-2xl text-secondary hover:text-[#FFDF57]/95">
-              Tryp Transit
-            </h1>
+            <h1 className="font-bold text-2xl text-secondary">Tryp Transit</h1>
           </Link>
           <div>
             <Link

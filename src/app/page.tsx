@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,6 +30,13 @@ const LoginForm = () => {
   const { isLoggedIn } = useAuth();
   const { login } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push('/dashboard');
+    }
+  }, [isLoggedIn, router]);
+
   const form = useForm({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -61,10 +69,6 @@ const LoginForm = () => {
     }
   }
 
-  if (isLoggedIn) {
-    router.push('/dashboard');
-  }
-
   return (
     <div className="relative flex justify-center w-full h-screen">
       <BackgroundPhoto
@@ -74,11 +78,9 @@ const LoginForm = () => {
         imgFour={BusPhotoNine}
       />
       <div className="relative bottom-20 z-10 flex justify-center items-center w-full max-w-md">
-        <Card className="bg-primary shadow-2xl w-full border-secondary">
+        <Card className="bg-white shadow-2xl w-full border-secondary">
           <CardHeader>
-            <CardTitle className="text-center text-secondary font-bold">
-              Login
-            </CardTitle>
+            <CardTitle className="text-center font-bold">Login</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...form}>
