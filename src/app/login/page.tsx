@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
 import BusPhotoFive from '@/public/bus-five.jpg';
@@ -41,6 +41,8 @@ const LoginForm = () => {
     },
   });
 
+  const { errors } = useFormState({ control: form.control });
+
   async function onSubmit(data: z.infer<typeof loginFormSchema>) {
     const { email, password } = data;
 
@@ -50,7 +52,7 @@ const LoginForm = () => {
     if (user && bcrypt.compareSync(password, user.password)) {
       localStorage.setItem('currentUser', JSON.stringify(user));
       login();
-      router.push('/routes');
+      router.push('/dashboard');
     } else {
       form.setError('email', {
         type: 'manual',
@@ -64,13 +66,13 @@ const LoginForm = () => {
   }
 
   if (isLoggedIn) {
-    router.push('/routes');
+    router.push('/dashboard');
   }
 
   return (
     <div className="relative flex justify-center w-full h-screen">
-      <div className="absolute md:grid md:grid-cols-2 grid-rows-2 w-full h-full hidden">
-        <div className="relative w-full h-full">
+      <div className="absolute md:grid md:grid-cols-2 grid-rows-2 w-full h-full">
+        <div className="relative w-full h-full hidden md:block">
           <Image
             src={BusPhotoSix}
             alt="Bus Photo One"
@@ -80,7 +82,7 @@ const LoginForm = () => {
             priority
           />
         </div>
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full hidden md:block">
           <Image
             src={BusPhotoFive}
             alt="Bus Photo Two"
@@ -90,7 +92,7 @@ const LoginForm = () => {
             priority
           />
         </div>
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full hidden md:block">
           <Image
             src={BusPhotoSeven}
             alt="Bus Photo Three"
@@ -129,7 +131,11 @@ const LoginForm = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email:</FormLabel>
+                      <FormLabel
+                        className={`${errors.email ? 'text-red-700' : ''}`}
+                      >
+                        Email:
+                      </FormLabel>
                       <FormControl>
                         <Input
                           className="w-full"
@@ -138,7 +144,7 @@ const LoginForm = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-700" />
                     </FormItem>
                   )}
                 />
@@ -147,7 +153,11 @@ const LoginForm = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password:</FormLabel>
+                      <FormLabel
+                        className={`${errors.password ? 'text-red-700' : ''}`}
+                      >
+                        Password:
+                      </FormLabel>
                       <FormControl>
                         <Input
                           className="w-full"
@@ -156,7 +166,7 @@ const LoginForm = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-700" />
                     </FormItem>
                   )}
                 />
