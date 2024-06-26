@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useFormState } from 'react-hook-form';
@@ -24,6 +23,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/auth-context-provider';
 import { loginFormSchema } from '@/validation/loginFormSchema';
+import BackgroundPhoto from '@/components/background-photo';
 
 const LoginForm = () => {
   const { isLoggedIn } = useAuth();
@@ -67,48 +67,12 @@ const LoginForm = () => {
 
   return (
     <div className="relative flex justify-center w-full h-screen">
-      <div className="absolute md:grid md:grid-cols-2 grid-rows-2 w-full h-full">
-        <div className="relative w-full h-full hidden md:block">
-          <Image
-            src={BusPhotoSix}
-            alt="Bus Photo One"
-            fill
-            className="object-cover opacity-70"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
-          />
-        </div>
-        <div className="relative w-full h-full hidden md:block">
-          <Image
-            src={BusPhotoFive}
-            alt="Bus Photo Two"
-            fill
-            className="object-cover opacity-70"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
-          />
-        </div>
-        <div className="relative w-full h-full hidden md:block">
-          <Image
-            src={BusPhotoSeven}
-            alt="Bus Photo Three"
-            fill
-            className="object-cover opacity-70"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
-          />
-        </div>
-        <div className="relative w-full h-full">
-          <Image
-            src={BusPhotoNine}
-            alt="Bus Photo Four"
-            fill
-            className="object-cover opacity-70"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
-          />
-        </div>
-      </div>
+      <BackgroundPhoto
+        imgOne={BusPhotoFive}
+        imgTwo={BusPhotoSix}
+        imgThree={BusPhotoSeven}
+        imgFour={BusPhotoNine}
+      />
       <div className="relative bottom-20 z-10 flex justify-center items-center w-full max-w-md">
         <Card className="bg-primary shadow-2xl w-full border-secondary">
           <CardHeader>

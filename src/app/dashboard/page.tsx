@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useFormState } from 'react-hook-form';
 import { useState } from 'react';
@@ -32,6 +31,7 @@ import {
 } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
 import { routesFormSchema } from '@/validation/routesFormSchema';
+import BackgroundPhoto from '@/components/background-photo';
 
 const busStops = [
   {
@@ -99,48 +99,12 @@ const Dashboard = () => {
         </p>
       </div>
       <div className="relative flex justify-center w-full h-screen">
-        <div className="absolute md:grid md:grid-cols-2 grid-rows-2 w-full h-full">
-          <div className="relative w-full h-full hidden md:block">
-            <Image
-              src={BusPhotoTwelve}
-              alt="Bus Photo One"
-              fill
-              className="object-cover opacity-70"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority
-            />
-          </div>
-          <div className="relative w-full h-full">
-            <Image
-              src={BusPhotoTen}
-              alt="Bus Photo Two"
-              fill
-              className="object-cover opacity-70"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority
-            />
-          </div>
-          <div className="relative w-full h-full hidden md:block">
-            <Image
-              src={BusPhotoFour}
-              alt="Bus Photo Three"
-              fill
-              className="object-cover opacity-70"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority
-            />
-          </div>
-          <div className="relative w-full h-full hidden md:block">
-            <Image
-              src={BusPhotoEight}
-              alt="Bus Photo Four"
-              fill
-              className="object-cover opacity-70"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority
-            />
-          </div>
-        </div>
+        <BackgroundPhoto
+          imgOne={BusPhotoFour}
+          imgTwo={BusPhotoEight}
+          imgThree={BusPhotoTen}
+          imgFour={BusPhotoTwelve}
+        />
         <div className="relative bottom-28 z-10 flex justify-center items-center w-full max-w-md">
           <Card className="bg-primary shadow-2xl w-full border-secondary">
             <CardHeader>
