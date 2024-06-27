@@ -41,7 +41,7 @@ const getCoordinates = (stopName: string) => {
   return busStopCoordinates[stopName] || null;
 };
 
-const Dashboard = () => {
+const RidesPage = () => {
   const { coordinates } = useGeolocation();
   const isLoggedIn = useRequireAuth();
   const { setTravelData } = useTravelContext();
@@ -86,13 +86,11 @@ const Dashboard = () => {
       const travelTime = response?.data?.travelTime ?? null;
       const trafficDensity = response?.data?.trafficDensity ?? null;
       const costSavings = response?.data?.costSavingsPerTrip ?? null;
-      const additionalRides = response?.data?.additionalRides ?? [];
 
       setTravelData({
         travelTime,
         trafficDensity,
         costSavings,
-        additionalRides,
       });
     } catch (error) {
       console.error(error);
@@ -261,4 +259,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default RidesPage;
