@@ -76,24 +76,7 @@ export async function POST(req: NextRequest) {
 
     const utcTime = convertToUTC(timeToDestination);
 
-    const prompt = `You are assisting a user to decide the best time to take a bus from in the Charleston, SC metropolitan area, to avoid traffic congestion and reduce the likelihood of accidents. Historical data shows:
-
-    - High congestion on I-26 and Highway 52 from 7 AM to 9 AM, and 4PM-6PM.
-    - Frequent accidents near downtown Charleston on I-26 during morning rush hour.
-    - Low bus ridership on suburban routes from Summerville during peak hours.
-    
-    
-    **Instructions**:
-    1. **Optimal Travel Time**: Recommend the best time for the user to take the bus today, considering current congestion and accident likelihood.
-    2. **Incentive**: Suggest a financial incentive to encourage the user to take the bus, such as a $2 credit for a coffee at a downtown cafe in the morning, or a $2 credit for a alcoholic drink at a downtown bar.
-    
-    **Output**:
-    - Suggested travel time.
-    - Incentive details and how the user can redeem it.
-    - A push notification message.
-    
-    Generate a friendly and persuasive response to be sent as a push notification.
-    Given the following traffic data: ${JSON.stringify(
+    const prompt = `Given the following traffic data: ${JSON.stringify(
       trafficData,
     )}, and current location: ${JSON.stringify(
       currentLocation,
