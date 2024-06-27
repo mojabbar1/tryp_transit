@@ -1,4 +1,5 @@
 import { StaticImageData } from 'next/image';
+import { ReactNode } from 'react';
 
 export interface BackgroundPhotoProps {
   imgOne: StaticImageData;
@@ -46,4 +47,8 @@ export interface TravelContextProps {
 
 export interface BusStopCoordinates {
   [key: string]: LocationInterface;
+}
+
+export interface TravelProviderProps {
+  children: ReactNode;
 }
