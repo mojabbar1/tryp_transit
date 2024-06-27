@@ -8,14 +8,14 @@
 1. Install Python
 2. Make sure your current working directory is the `model/` directory
 3. Create a virtual environment
-  `python3 -m venv .venv`
+   `python3 -m venv .venv`
 4. Activate the virtual environment
-  `./.venv/bin/activate`
+   `./.venv/bin/activate`
 5. Install dependencies
    `pip3 install -r requirements.txt`
 6. Start the server
    `flask run`
-    (By default the server runs on `localhost:5000`)
+   (By default the server runs on `localhost:5000`)
 
 ## API
 
