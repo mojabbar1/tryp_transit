@@ -3,7 +3,7 @@
 #
 
 from math import floor
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import torch
@@ -21,8 +21,7 @@ def build_df():
   #
   # Load the CSV file
   print("reading " + file_path)
-  df = pd.read_csv(file_path)
-
+  df = pd.read_csv(file_path).iloc[::-1]
   print("building features")
 
   # Handle missing values by dropping rows with any missing data
@@ -49,6 +48,20 @@ def chronos_forecast(target, days_into_future):
   context = torch.tensor(target)
   forecast = pipeline.predict(context, days_into_future, limit_prediction_length=False)
   median = np.quantile(forecast[0].numpy(), [0.5], axis=0)
+  
+  # start viz
+  # forecast_index = range(len(target), len(target) + days_into_future)
+  # low, median, high = np.quantile(forecast[0].numpy(), [0.1, 0.5, 0.9], axis=0)
+
+  # plt.figure(figsize=(8, 4))
+  # plt.plot(target, color="royalblue", label="historical data")
+  # plt.plot(forecast_index, median, color="tomato", label="median forecast")
+  # plt.fill_between(forecast_index, low, high, color="tomato", alpha=0.3, label="80% prediction interval")
+  # plt.legend()
+  # plt.grid()
+  # plt.show()
+  # end viz
+  
   return median[-1][-1]
 
 def predict(days_into_future) -> float:
@@ -56,16 +69,5 @@ def predict(days_into_future) -> float:
     return 0
   return floor(chronos_forecast(build_df(), days_into_future))
 
-#
-# visualize the forecast
-#
-# forecast_index = range(len(df), len(df) + days_into_future)
-# low, median, high = np.quantile(forecast[0].numpy(), [0.1, 0.5, 0.9], axis=0)
 
-# plt.figure(figsize=(8, 4))
-# plt.plot(target_bus, color="royalblue", label="historical data")
-# plt.plot(forecast_index, median, color="tomato", label="median forecast")
-# plt.fill_between(forecast_index, low, high, color="tomato", alpha=0.3, label="80% prediction interval")
-# plt.legend()
-# plt.grid()
-# plt.show()
+predict(10)
