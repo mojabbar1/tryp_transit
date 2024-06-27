@@ -1,15 +1,13 @@
-import { parse } from 'date-fns';
-
 export function convertToUTC(time: string): string {
-  const parsedTime = parse(time, 'h:mm a', new Date());
+  const [hours, minutes] = time.split(':').map(Number);
 
   const now = new Date();
   const destinationTime = new Date(
     now.getFullYear(),
     now.getMonth(),
     now.getDate(),
-    parsedTime.getHours(),
-    parsedTime.getMinutes(),
+    hours,
+    minutes,
   );
 
   return destinationTime.toISOString();

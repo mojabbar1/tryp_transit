@@ -22,13 +22,28 @@ export interface TrafficData {
   incidents: any;
 }
 
-export interface Location {
+export interface LocationInterface {
   lat: number;
   lng: number;
 }
 
 export interface RequestBody {
-  currentLocation: Coordinates;
-  destination: Location;
+  departure: LocationInterface;
+  destination: LocationInterface;
   timeToDestination: string;
+}
+
+export interface TravelContextProps {
+  travelTime: number | null;
+  trafficDensity: string | null;
+  costSavings: number | null;
+  setTravelData: (data: {
+    travelTime: number | null;
+    trafficDensity: string | null;
+    costSavings: number | null;
+  }) => void;
+}
+
+export interface BusStopCoordinates {
+  [key: string]: LocationInterface;
 }
