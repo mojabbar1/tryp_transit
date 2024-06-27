@@ -1,4 +1,3 @@
-import { Card } from '@/components/ui/card';
 import Speed from '@/public/speed-img.jpg';
 import Image from 'next/image';
 
