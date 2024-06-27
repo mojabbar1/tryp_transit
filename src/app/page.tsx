@@ -25,17 +25,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/auth-context-provider';
 import { loginFormSchema } from '@/validation/loginFormSchema';
 import BackgroundPhoto from '@/components/background-photo';
+import Loadable from 'next/dist/shared/lib/loadable.shared-runtime';
+import Loading from '@/components/loading';
 
 const LoginForm = () => {
-  const { isLoggedIn } = useAuth();
-  const { login } = useAuth();
+  const { login, isLoading, isLoggedIn } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (isLoggedIn) {
       router.push('/dashboard');
     }
-  }, [isLoggedIn, router]);
+  }, [isLoggedIn, isLoading, router]);
 
   const form = useForm({
     resolver: zodResolver(loginFormSchema),
@@ -69,6 +70,10 @@ const LoginForm = () => {
     }
   }
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="relative flex justify-center w-full h-screen">
       <BackgroundPhoto
@@ -80,7 +85,7 @@ const LoginForm = () => {
       <div className="relative bottom-20 z-10 flex justify-center items-center w-full max-w-md">
         <Card className="bg-white shadow-2xl w-full border-secondary">
           <CardHeader>
-            <CardTitle className="text-center font-bold">Login</CardTitle>
+            <CardTitle className="text-center font-bold">LOGIN</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -133,7 +138,7 @@ const LoginForm = () => {
                   )}
                 />
                 <Button variant="secondary" type="submit">
-                  Login
+                  LOGIN
                 </Button>
               </form>
             </Form>
@@ -143,7 +148,7 @@ const LoginForm = () => {
                 className="font-bold hover:underline text-secondary"
                 href="/register"
               >
-                Register here
+                REGISTER HERE
               </Link>
             </div>
           </CardContent>
