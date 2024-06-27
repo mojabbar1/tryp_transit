@@ -11,25 +11,28 @@ const openai = new OpenAI({
 const TOMTOM_API_KEY = process.env.NEXT_PUBLIC_TOMTOM_API_KEY;
 
 export async function POST(req: NextRequest) {
-  const { currentLocation, destination, timeToDestination }: RequestBody =
+  const { departure, destination, timeToDestination }: RequestBody =
     await req.json();
 
-  if (!currentLocation || !destination || !timeToDestination) {
+  if (!departure || !destination || !timeToDestination) {
     return NextResponse.json(
       { error: 'Missing required parameters.' },
       { status: 400 },
     );
   }
 
-  const currentLat = currentLocation.latitude;
-  const currentLng = currentLocation.longitude;
-  const destLat = destination.lat;
-  const destLng = destination.lng;
+  const departureLatitude = departure.lat;
+  const departureLongitude = departure.lng;
+  const destinationLatitude = destination.lat;
+  const destinationLongitude = destination.lng;
 
-  const bbox = `${Math.min(currentLat!, destLat)},${Math.min(
-    currentLng!,
-    destLng,
-  )},${Math.max(currentLat!, destLat)},${Math.max(currentLng!, destLng)}`;
+  const bbox = `${Math.min(departureLatitude!, destinationLatitude)},${Math.min(
+    departureLongitude,
+    destinationLongitude,
+  )},${Math.max(departureLatitude, destinationLatitude)},${Math.max(
+    departureLongitude,
+    destinationLongitude,
+  )}`;
 
   try {
     const flowResponseCurrent = await axios.get(
@@ -37,7 +40,7 @@ export async function POST(req: NextRequest) {
       {
         params: {
           key: TOMTOM_API_KEY,
-          point: `${currentLat},${currentLng}`,
+          point: `${departureLatitude},${departureLongitude}`,
         },
       },
     );
@@ -47,7 +50,7 @@ export async function POST(req: NextRequest) {
       {
         params: {
           key: TOMTOM_API_KEY,
-          point: `${destLat},${destLng}`,
+          point: `${destinationLatitude},${destinationLongitude}`,
         },
       },
     );
@@ -79,10 +82,10 @@ export async function POST(req: NextRequest) {
     const prompt = `Given the following traffic data: ${JSON.stringify(
       trafficData,
     )}, and current location: ${JSON.stringify(
-      currentLocation,
+      departure,
     )}, destination: ${JSON.stringify(
       destination,
-    )}, and destination time: ${utcTime}, what is the estimated travel time from the current location to the destination in minutes? Also, estimate the current traffic density based on the flow and incidents data I want the traffic density categorizeed as either Light, Medium, or Heavy. Please return the response as JSON with "travelTime" and "trafficDensity" fields only.`;
+    )}, and destination time: ${utcTime}, what is the estimated travel time from the current location to the destination in minutes? Also, estimate the current traffic density based on the flow and incidents data I want the traffic density categorizeed as either Light, Medium, or Heavy. Also, can you make an estimate of how many US dollars (in the format 1.20 is $1.20) are saved for one trip by riding the bus versus driving btaking into account gas prices and distance from ${departure} to ${destination}. Also cound you send an array of length 3 containing rides with similiar values for traffic density but higher density and travel times but slower and I want them to be considered runner up rides. I want the rides inside the array to include a "travelTime" and a "trafficDensity". Please return the response as JSON with "travelTime", "trafficDensity", "costSavingsPerTrip", and "additionalRides" fields only.`;
 
     const stream = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',

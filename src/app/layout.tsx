@@ -4,6 +4,8 @@ import './globals.css';
 import Navbar from '@/components/navbar';
 import { GeolocationProvider } from '@/contexts/geolocation-context-provider';
 import { AuthProvider } from '@/contexts/auth-context-provider';
+import { TravelProvider } from '@/contexts/travel-context';
+import Footer from '@/components/footer';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['500', '900'] });
 
@@ -22,8 +24,11 @@ export default function RootLayout({
       <body className={poppins.className}>
         <AuthProvider>
           <GeolocationProvider>
-            <Navbar />
-            {children}
+            <TravelProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </TravelProvider>
           </GeolocationProvider>
         </AuthProvider>
       </body>

@@ -20,7 +20,7 @@ const Navbar = () => {
       <nav className="p-6 bg-primary">
         <div className="flex items-center justify-between">
           <Link
-            href="/"
+            href={isLoggedIn ? '/dashboard' : '/'}
             className="flex items-center gap-2 hover:filter hover:brightness-125"
           >
             <Image
@@ -34,19 +34,21 @@ const Navbar = () => {
             <h1 className="font-bold text-2xl text-secondary">Tryp Transit</h1>
           </Link>
           <div>
-            <Link
-              className="font-bold text-secondary hover:text-[#FFDF57]/95"
-              href="/about"
-            >
-              About
-            </Link>
             {isLoggedIn && (
-              <button
-                onClick={handleLogout}
-                className="ml-4 font-bold text-secondary hover:text-[#FFDF57]/95"
-              >
-                Logout
-              </button>
+              <>
+                <Link
+                  className="ml-4 font-bold text-secondary hover:text-[#FFDF57]/95"
+                  href="/find-rides"
+                >
+                  Find Rides
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="ml-4 font-bold text-secondary hover:text-[#FFDF57]/95"
+                >
+                  Logout
+                </button>
+              </>
             )}
           </div>
         </div>

@@ -24,9 +24,10 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { registerFormSchema } from '@/validation/registerFormSchema';
 import BackgroundPhoto from '@/components/background-photo';
+import Loading from '@/components/loading';
 
 const RegisterForm = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isLoading } = useAuth();
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(registerFormSchema),
@@ -55,6 +56,10 @@ const RegisterForm = () => {
     router.push('/');
   }
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   if (isLoggedIn) {
     router.push('/dashboard');
   }
@@ -70,7 +75,7 @@ const RegisterForm = () => {
       <div className="relative z-10 flex justify-center items-center w-full max-w-md">
         <Card className="bg-white shadow-2xl w-full border-secondary">
           <CardHeader>
-            <CardTitle className="text-center font-bold">Register</CardTitle>
+            <CardTitle className="text-center font-bold">REGISTER</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -169,7 +174,7 @@ const RegisterForm = () => {
                   )}
                 />
                 <Button variant="secondary" type="submit">
-                  Register
+                  REGISTER
                 </Button>
               </form>
             </Form>
@@ -179,7 +184,7 @@ const RegisterForm = () => {
                 className="font-bold hover:underline text-secondary"
                 href="/"
               >
-                Login here
+                LOGIN HERE
               </Link>
             </div>
           </CardContent>
