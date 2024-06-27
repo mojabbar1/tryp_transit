@@ -1,0 +1,50 @@
+transit_timestamp,bus_route,payment_method,fare_class_category,ridership,transfers
+01/31/2024 08:00:00 PM,SIM4,metrocard,Metrocard - Full Fare,15,1
+01/31/2024 11:00:00 PM,Q1,omny,OMNY - Full Fare,5,2
+01/31/2024 04:00:00 AM,B9,metrocard,Metrocard - Unlimited 7-Day,2,0
+01/31/2024 04:00:00 AM,S78,metrocard,Metrocard - Other,1,0
+01/31/2024 05:00:00 AM,B42,metrocard,Metrocard - Students,1,0
+01/31/2024 06:00:00 AM,BX13,metrocard,Metrocard - Seniors & Disability,9,1
+01/31/2024 06:00:00 AM,M79,metrocard,Metrocard - Full Fare,27,21
+01/31/2024 07:00:00 AM,S93,omny,OMNY - Full Fare,62,15
+01/31/2024 11:00:00 AM,M34,metrocard,Metrocard - Unlimited 30-Day,52,0
+01/31/2024 12:00:00 PM,B4,metrocard,Metrocard - Full Fare,23,5
+01/31/2024 12:00:00 PM,B63,omny,OMNY - Seniors & Disability,6,1
+01/31/2024 12:00:00 PM,Q5,metrocard,Metrocard - Students,6,4
+01/31/2024 03:00:00 PM,Q8,metrocard,Metrocard - Other,10,0
+01/31/2024 04:00:00 PM,B24,omny,OMNY - Seniors & Disability,1,0
+01/31/2024 05:00:00 PM,M20,omny,OMNY - Seniors & Disability,1,0
+01/31/2024 06:00:00 PM,BX40,metrocard,Metrocard - Students,6,1
+01/31/2024 10:00:00 PM,B8,metrocard,Metrocard - Fair Fare,5,1
+01/31/2024 05:00:00 AM,BX19,metrocard,Metrocard - Seniors & Disability,7,4
+01/31/2024 07:00:00 AM,SIM4,omny,OMNY - Seniors & Disability,1,0
+01/31/2024 08:00:00 AM,M96,metrocard,Metrocard - Other,38,6
+01/31/2024 12:00:00 PM,B25,metrocard,Metrocard - Students,5,1
+01/31/2024 01:00:00 PM,BX15,metrocard,Metrocard - Fair Fare,23,4
+01/31/2024 06:00:00 PM,M42,metrocard,Metrocard - Unlimited 30-Day,66,0
+01/31/2024 07:00:00 PM,BX39,metrocard,Metrocard - Unlimited 7-Day,31,0
+01/31/2024 08:00:00 PM,BX9,omny,OMNY - Seniors & Disability,1,1
+01/31/2024 09:00:00 PM,M3,omny,OMNY - Full Fare,58,7
+01/31/2024 01:00:00 AM,Q20,omny,OMNY - Full Fare,2,2
+01/31/2024 05:00:00 AM,M98,metrocard,Metrocard - Full Fare,4,0
+01/31/2024 07:00:00 AM,BX3,metrocard,Metrocard - Unlimited 30-Day,56,0
+01/31/2024 07:00:00 AM,X63,omny,OMNY - Full Fare,67,4
+01/31/2024 08:00:00 AM,Q7,metrocard,Metrocard - Unlimited 7-Day,19,0
+01/31/2024 09:00:00 AM,Unknown Route,omny,OMNY - Full Fare,312,72
+01/31/2024 10:00:00 AM,Q25,metrocard,Metrocard - Fair Fare,37,3
+01/31/2024 10:00:00 AM,S55,metrocard,Metrocard - Fair Fare,1,0
+01/31/2024 12:00:00 PM,B16,omny,OMNY - Full Fare,42,4
+01/31/2024 12:00:00 PM,M14,metrocard,Metrocard - Unlimited 7-Day,64,0
+01/31/2024 01:00:00 PM,B31,metrocard,Metrocard - Seniors & Disability,7,2
+01/31/2024 05:00:00 PM,B14,metrocard,Metrocard - Unlimited 30-Day,20,0
+01/31/2024 11:00:00 PM,NIS,metrocard,Metrocard - Seniors & Disability,6,0
+01/31/2024 11:00:00 PM,Q49,metrocard,Metrocard - Other,3,0
+01/31/2024 05:00:00 AM,B9,metrocard,Metrocard - Fair Fare,9,0
+01/31/2024 07:00:00 AM,B82,metrocard,Metrocard - Unlimited 30-Day,290,0
+01/31/2024 09:00:00 AM,BX1,metrocard,Metrocard - Fair Fare,31,8
+01/31/2024 11:00:00 AM,B17,metrocard,Metrocard - Seniors & Disability,35,9
+01/31/2024 01:00:00 PM,B52,omny,OMNY - Full Fare,130,22
+01/31/2024 02:00:00 PM,BX25,metrocard,Metrocard - Other,2,1
+01/31/2024 02:00:00 PM,BX4,metrocard,Metrocard - Students,15,0
+01/31/2024 02:00:00 PM,Q29,omny,OMNY - Full Fare,86,33
+01/31/2024 05:00:00 PM,B2,metrocard,Metrocard - Students,6,4

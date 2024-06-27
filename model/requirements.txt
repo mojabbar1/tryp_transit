@@ -1,0 +1,9 @@
+transformers
+scikit-learn
+pandas
+pyarrow
+torch
+numpy==1.24.0
+chronos @ git+https://github.com/amazon-science/chronos-forecasting@main
+matplotlib
+flask
