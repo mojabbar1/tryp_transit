@@ -69,7 +69,7 @@ const RoutesPage = () => {
         <Card className="w-full max-w-2xl bg-primary-foreground rounded-lg overflow-hidden mb-8 shadow-2xl">
           <CardHeader className="bg-primary p-6">
             <CardTitle className="text-primary-foreground text-2xl font-semibold">
-              My Ride
+              My Tryp
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 bg-primary-foreground">
@@ -115,12 +115,12 @@ const RoutesPage = () => {
               rel="noopener noreferrer"
             >
               <Button className="bg-primary hover:bg-[#3CC168]/80">
-                Book Now with CARTA
+                BOOK NOW WITH CARTA
               </Button>
             </a>
-            <Link href="/dashboard">
+            <Link href="/find-rides">
               <Button className="bg-primary hover:bg-[#3CC168]/80">
-                Plan Another Route
+                PLAN ANOTHER ROUTE
               </Button>
             </Link>
           </CardFooter>

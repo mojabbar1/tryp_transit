@@ -36,7 +36,6 @@ import BackgroundPhoto from '@/components/background-photo';
 import { useTravelContext } from '@/contexts/travel-context';
 import { busStopCoordinates } from '../data/busStopCoordinates';
 import Loading from '@/components/loading';
-import Link from 'next/link';
 
 const getCoordinates = (stopName: string) => {
   return busStopCoordinates[stopName] || null;
@@ -136,7 +135,7 @@ const Dashboard = () => {
           <Card className="bg-white shadow-2xl w-full border-secondary">
             <CardHeader>
               <CardTitle className="text-center text-black font-bold">
-                FIND MY REWARDS
+                FIND TRIP REWARDS
               </CardTitle>
             </CardHeader>
             <CardContent>
