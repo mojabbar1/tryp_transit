@@ -41,7 +41,7 @@ def chronos_forecast(target, days_into_future):
   print("running chronos pipeline on " + model)
   pipeline = ChronosPipeline.from_pretrained(
     model,
-    device_map="mps",
+    device_map="cpu",
     torch_dtype=torch.bfloat16,
   )
 
